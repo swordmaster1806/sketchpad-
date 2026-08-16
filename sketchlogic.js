@@ -2,9 +2,12 @@ let mainContainer = document.querySelector("#container");
 
 makeASquare()
 
-mainContainer.addEventListener("mouseover", paint);
 
+let clickModeActive = false;
 let erase = false;
+let mousedown = false;
+
+
 
 
 function paint(square) {
@@ -37,3 +40,33 @@ function makeASquare() {
   }
 
 }
+
+
+
+mainContainer.addEventListener("mouseover", function(square){
+
+  if((!clickModeActive || mousedown) && square.target !== mainContainer) paint(square);
+     
+});
+
+mainContainer.addEventListener("mousedown" , function(square){
+  square.preventDefault();
+  if(clickModeActive && square.target !== mainContainer){
+    paint(square);
+    mousedown = true;
+  }
+})
+
+document.body.addEventListener("mouseup" , () =>{
+
+   mousedown = false
+   console.log("mouse was just put up");
+  
+  })
+
+document.querySelector("#mode").addEventListener("click" , () => {
+  clickModeActive = !clickModeActive
+
+});
+
+
