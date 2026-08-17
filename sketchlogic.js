@@ -15,10 +15,31 @@ function paintASquare(square) {
 
 }
 
+function selectSize(){
+  let value = 16;
+
+  value = Number(prompt("enter a size b/w 1 and 100"));
+
+  if(Number.isNaN(value) || value <1 || value>100) return 16;
+
+  return value;
+
+}
+
 
 function makeASquare() {
 
-  let size = +prompt("Enter a size");
+
+  let size = selectSize();
+
+
+  if(mainContainer.hasChildNodes()){
+    console.log("this was ran");
+     mainContainer.removeChild(mainContainer.firstChild);
+  }
+
+  let container = document.createElement("div");
+  
 
   for (let i = 0; i < size; i++) {
 
@@ -33,8 +54,10 @@ function makeASquare() {
 
     }
 
-    mainContainer.appendChild(rowContainer);
+    container.appendChild(rowContainer);
   }
+
+  mainContainer.appendChild(container);
 
 }
 
@@ -64,13 +87,18 @@ document.body.addEventListener("mouseup", () => {
 
 
 
-let squareList = document.querySelectorAll(".squares");
-
 
 document.body.addEventListener("click", function (event) {
 
-  if (event.target.id === "reset")
+
+  if(event.target.id === "size") makeASquare();
+
+  else if (event.target.id === "reset"){ 
+
+    let squareList = document.querySelectorAll(".squares");
     squareList.forEach((square) => square.style.backgroundColor = "white");
+
+  }
 
 
   else if (event.target.id === "mode") {
@@ -82,7 +110,7 @@ document.body.addEventListener("click", function (event) {
     else event.target.textContent = "trace";
 
   }
-  
+
   else if (event.target.id === "eraser") {
 
     erase = !erase;
@@ -94,8 +122,5 @@ document.body.addEventListener("click", function (event) {
     else 
       event.target.textContent = "eraser (on)";
  
-  
   }
-
-
 })
