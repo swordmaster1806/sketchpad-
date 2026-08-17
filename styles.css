@@ -12,7 +12,14 @@
 
 }
 
-.rowFlexBoxChildren{
+.squares{
     flex:1;
     aspect-ratio:1;
+}
+
+#buttoncontainer{
+    display:flex;
+    justify-content: center;
+    gap:5px;
+    margin-bottom:50px;
 }
